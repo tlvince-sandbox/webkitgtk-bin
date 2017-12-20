@@ -6,15 +6,13 @@ services:
   - docker
 env:
   global:
-    # Remove /usr/sbin to fix "ImportError: cannot import name 'codegen_main'"
-    - PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/bin:/snap/bin
-    # Use all available CPU cores, see: https://docs.travis-ci.com/user/speeding-up-the-build/#Makefile-optimization
     - MAKEFLAGS="-j 2"
 install:
   - docker pull maximbaz/arch-build-aur
 script:
 script:
-  - docker run --rm --env PATH=/tmp -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c 'echo $PATH'
+  # Remove /usr/sbin from default PATH to fix "ImportError: cannot import name 'codegen_main'"
+  - docker run --rm --env PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/bin -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c 'echo $PATH && env'
   - docker run --rm -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c '/build-aur webkitgtk'
 deploy:
   provider: releases
