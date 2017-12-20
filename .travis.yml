@@ -1,0 +1,16 @@
+language: generic
+sudo: required
+services:
+  - docker
+install:
+  - docker pull maximbaz/arch-build-aur
+script:
+  - docker run --rm -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c '/build-aur webkitgtk2'
+deploy:
+  provider: releases
+  api_key: "$GH_TOKEN"
+  skip_cleanup: true
+  file_glob: true
+  file: *
+  on:
+    tags: true
