@@ -1,0 +1,5 @@
+language: none
+build:
+  ci:
+    - docker pull maximbaz/arch-build-aur
+    - docker run --rm --env PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/sbin:/bin --env MAKEFLAGS="-j 2" -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c '/build-aur webkitgtk'
