@@ -7,7 +7,7 @@ services:
 install:
   - docker pull maximbaz/arch-build-aur
 script:
-  - docker run --rm -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c '/build-aur webkitgtk2'
+  - docker run --rm -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c '/build-aur webkitgtk'
 deploy:
   provider: releases
   api_key: "$GH_TOKEN"
