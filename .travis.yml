@@ -13,6 +13,8 @@ env:
 install:
   - docker pull maximbaz/arch-build-aur
 script:
+script:
+  - docker run --rm -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c 'echo $PATH'
   - docker run --rm -v $(pwd):/pkg maximbaz/arch-build-aur /bin/bash -c '/build-aur webkitgtk'
 deploy:
   provider: releases
